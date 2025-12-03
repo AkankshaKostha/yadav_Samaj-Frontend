@@ -22,6 +22,8 @@ export class LoginComponent {
   otpForm: FormGroup;
   step: 1 | 2 = 1;
   userType: UserType = 'matrimonial';
+  adminForm: FormGroup;
+   loginType: 'user' | 'admin' = 'user'; // default = user login
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +40,11 @@ export class LoginComponent {
     this.otpForm = this.fb.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{4,6}$/)]]
     });
-
+  // ---------------- Admin Form ----------------
+    this.adminForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
     this.route.queryParams.subscribe(params => {
       this.userType = params['redirect'] === 'membership' ? 'membership' : 'matrimonial';
     });
@@ -137,6 +143,23 @@ export class LoginComponent {
     } catch (err: any) {
       console.error(err);
       await Swal.fire('Error', err?.message || 'Something went wrong during OTP verification', 'error');
+    }
+  }
+
+    // ---------------- Admin Login ----------------
+  loginAdmin() {
+    const { email, password } = this.adminForm.value;
+
+    // ✅ Replace these with real admin validation logic or API
+    const ADMIN_EMAIL = 'admin@yadavsamaj.com';
+    const ADMIN_PASSWORD = 'Admin123';
+
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      this.authService.saveUser({ name: 'Admin', role: 'ADMIN' });
+      Swal.fire('Success', 'Admin Logged In', 'success');
+    this.router.navigate(['/admin/dashboard']);
+    } else {
+      Swal.fire('Error', 'Invalid email or password', 'error');
     }
   }
 }

@@ -35,7 +35,7 @@ import { AdminLoginComponent } from './pages/admin/admin-login/admin-login';
 export const routes: Routes = [
   // 🌐 Public Routes
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  // { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'matrimonial-login', component: MatrimonialLoginComponent },
 { path: 'membership-login', component: MembershipLoginComponent},
 { path: 'admin-login', component: AdminLoginComponent},

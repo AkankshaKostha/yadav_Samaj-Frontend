@@ -1,18 +1,22 @@
-<h2>{{ userType | titlecase }} Login</h2>
+<div class="login-container">
 
-<form *ngIf="step === 1" [formGroup]="phoneForm" (ngSubmit)="sendOtp()">
-  <input formControlName="phone" placeholder="Enter Phone" />
-  <button type="submit">Send OTP</button>
-</form>
+  <!-- ===== ADMIN LOGIN ===== -->
+  <div class="login-box">
+    <h2>Admin Login</h2>
 
-<form *ngIf="step === 2" [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
-  <input formControlName="otp" placeholder="Enter OTP" />
-  <button type="submit">Verify OTP</button>
-</form>
+    <form [formGroup]="adminForm" (ngSubmit)="loginAdmin()">
+      <div class="input-group">
+        <input formControlName="email" required />
+        <label>Email Address</label>
+      </div>
 
-<div class="switch-type">
-  <a [routerLink]="['/login']" [queryParams]="{ redirect: 'matrimonial' }">Matrimonial Login</a> |
-  <a [routerLink]="['/login']" [queryParams]="{ redirect: 'membership' }">Membership Login</a>
-  <a routerLink="/membership-register" routerLinkActive="active">Membership Register</a>
-  <a routerLink="/matrimonial-register" routerLinkActive="active">Matrimonial Register</a>
+      <div class="input-group">
+        <input type="password" formControlName="password" required />
+        <label>Password</label>
+      </div>
+
+      <button class="btn primary">Login as Admin</button>
+    </form>
+  </div>
+
 </div>
